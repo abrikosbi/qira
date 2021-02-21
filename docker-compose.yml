@@ -1,0 +1,11 @@
+version: '3'
+services:
+  ubuntu:
+    build:
+      context: images
+      dockerfile: ubuntu.docker
+    command: tail -f /dev/null
+    ports:
+      - "${QIRA_PORT:-3002}:3002"
+    volumes:
+      - ./shared:/spbctf_shared

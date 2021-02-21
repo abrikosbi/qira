@@ -1,0 +1,17 @@
+FROM ubuntu:18.04
+
+RUN apt-get update && apt-get install -y sudo vim git curl python python-virtualenv python-dev build-essential \
+  pkg-config zlib1g-dev libglib2.0-dev libpixman-1-dev libcapstone-dev debootstrap debian-archive-keyring
+
+RUN git clone https://github.com/geohot/qira.git
+
+#RUN sed -i 's/qemu.git --depth 1 --branch qira/qemu.git --depth 1 --branch v3.1.0-qira/' /qira/tracers/qemu_build.sh
+#RUN sed -i 's/--cpu=unknown --python=python/--enable-capstone --python=python/' /qira/tracers/qemu_build.sh
+
+COPY qemu_build.sh /qira/tracers/qemu_build.sh
+
+RUN chmod +x /qira/tracers/qemu_build.sh
+
+WORKDIR /qira
+
+RUN ./install.sh
